@@ -8,9 +8,11 @@
         <title>Objects</title>
         <!--Styles boostrap-->
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="../libs/three.min.js"></script>
+        <script src="/JsCompu/main.js"></script>
+        <script src="/libs/OrbitControls.js"></script>
     </head>
-<body>
+<body onload="startScene()">
     <nav class="navbar border-bottom border-body" id="navba" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand" href="../index.html">
@@ -19,6 +21,10 @@
         </div>
     </nav>
     <br>
+    <canvas style="position: fixed;" id="app">
+
+
+    </canvas>
     <!--footer-->
     <div class="container">
         <footer class="navbar fixed-bottom text-center text-lg-start" style="background-color: #c5c5c5;">
