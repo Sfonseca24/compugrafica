@@ -61,8 +61,18 @@ function createGeometry(typeForm) {
         const materialcube = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
         cube = new THREE.Mesh(geometrycube, materialcube);
         scene.add(cube);
-        cube.position.x=Math.random() * 10;
-        cube.position.z=Math.random() * 10+15;
+        cube.position.x=Math.floor(Math.random() * 10);
+        cube.position.z=Math.floor(Math.random() * 10);
+        
+        let positionx = cube.position.x;
+        if (cube.position.x != 0 && cube.position.z != 0) {
+            cube.position.x += 5;
+            cube.position.z += 5;
+        }else{
+            cube.position.x=Math.random() * 10;
+            cube.position.z=Math.random() * 10;
+        }
+        console.log("posicion x solo: "+positionx);
             break;
         case 'torus':
 
