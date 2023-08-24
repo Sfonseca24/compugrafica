@@ -49,49 +49,63 @@ function startScene() {
     onWindowResize();
 }
 
-function createGeometry() {
+function createGeometry(typeForm) {
 
         //---objects---
     //to delete
+    switch (typeForm) {
+        case 'cube':
 
-    //CUBE
-    const geometrycube = new THREE.BoxGeometry(1, 1, 1);
-    const materialcube = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    cube = new THREE.Mesh(geometrycube, materialcube);
-    scene.add(cube);
+            //CUBE
+        const geometrycube = new THREE.BoxGeometry(1, 1, 1);
+        const materialcube = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+        cube = new THREE.Mesh(geometrycube, materialcube);
+        scene.add(cube);
+        cube.position.x=Math.random() * 10;
+        cube.position.z=Math.random() * 10+15;
+            break;
+        case 'torus':
 
-    //TORUS
-    const geometrytorus = new THREE.TorusGeometry(0, 0, 5, 10);
-    const materialtorus = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
-    torus = new THREE.Mesh(geometrytorus, materialtorus);
-    scene.add(torus);
+            //TORUS
+        const geometrytorus = new THREE.TorusGeometry(0, 0, 5, 10);
+        const materialtorus = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+        torus = new THREE.Mesh(geometrytorus, materialtorus);
+        scene.add(torus);
+        torus.position.x=Math.random() * 10;
+        torus.position.z=Math.random() * 10+15;
+            break;
+        case 'cone':
+            
+         //CONE
+        const geometrycono = new THREE.ConeGeometry(0.8, 1, 0.8);
+        const materialcono = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+        cono = new THREE.Mesh(geometrycono, materialcono);
+        scene.add(cono);
+        cono.position.x=Math.random() * 10;
+        cono.position.z=Math.random() * 10+15;
+            break;
+    }
 
-    //CONE
-    const geometrycono = new THREE.ConeGeometry(0.8, 1, 0.8);
-    const materialcono = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
-    cono = new THREE.Mesh(geometrycono, materialcono);
-    scene.add(cono);
 
     //SETTINGS POSITION
 
-    torus.position.x = -4;
-    cono.position.x = 4;
     
 }
+
 
 function animate() {
     requestAnimationFrame(animate);
     control.update();
     renderer.render(scene, camera);
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    // cube.rotation.x += 0.01;
+    // cube.rotation.y += 0.01;
 
-    torus.rotation.z += 0.01;
-    torus.rotation.y += 0.01;
+    // torus.rotation.z += 0.01;
+    // torus.rotation.y += 0.01;
 
-    cono.rotation.z += 0.01;
-    cono.rotation.y += 0.01;
+    // cono.rotation.z += 0.01;
+    // cono.rotation.y += 0.01;
 }
 
 window.addEventListener('resize', onWindowResize, false);
