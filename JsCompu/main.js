@@ -13,6 +13,8 @@ var scene = null,
     torus = null,
     cono = null,
     cube = null;
+    max = 11;
+    min = -11;
 
 function startScene() {
 
@@ -34,8 +36,8 @@ function startScene() {
     control.update();
 
     //GRIDHELPER
-    const size = 10;
-    const divisions = 10;
+    const size = 20;
+    const divisions = 30;
 
     const gridHelper = new THREE.GridHelper(size, divisions);
     scene.add(gridHelper);
@@ -61,18 +63,14 @@ function createGeometry(typeForm) {
         const materialcube = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
         cube = new THREE.Mesh(geometrycube, materialcube);
         scene.add(cube);
-        cube.position.x=Math.floor(Math.random() * 10);
-        cube.position.z=Math.floor(Math.random() * 10);
+        cube.position.x=Math.floor((Math.random() * (max - min + 1)) + min);
+        cube.position.z=Math.floor((Math.random() * (max - min + 1)) + min);
         
         let positionx = cube.position.x;
-        if (cube.position.x != 0 && cube.position.z != 0) {
-            cube.position.x += 5;
-            cube.position.z += 5;
-        }else{
-            cube.position.x=Math.random() * 10;
-            cube.position.z=Math.random() * 10;
-        }
+        let positionz = cube.position.z;
+       
         console.log("posicion x solo: "+positionx);
+        console.log("posicion z solo: "+positionz);
             break;
         case 'torus':
 
@@ -81,18 +79,35 @@ function createGeometry(typeForm) {
         const materialtorus = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
         torus = new THREE.Mesh(geometrytorus, materialtorus);
         scene.add(torus);
-        torus.position.x=Math.random() * 10;
-        torus.position.z=Math.random() * 10+15;
+        torus.position.x=Math.floor((Math.random() * (max - min + 1)) + min);
+        torus.position.z=Math.floor((Math.random() * (max - min + 1)) + min);
+                
+        let positionxt = torus.position.x;
+        let positionzt = torus.position.z;
+       
+        console.log("posicion x solo: "+positionxt);
+        console.log("posicion z solo: "+positionzt);
+
             break;
         case 'cone':
             
          //CONE
-        const geometrycono = new THREE.ConeGeometry(0.8, 1, 0.8);
+        const geometrycono = new THREE.ConeGeometry(1, 3, 8);
         const materialcono = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
         cono = new THREE.Mesh(geometrycono, materialcono);
         scene.add(cono);
         cono.position.x=Math.random() * 10;
         cono.position.z=Math.random() * 10+15;
+
+        cono.position.x=Math.floor((Math.random() * (max - min + 1)) + min);
+        cono.position.z=Math.floor((Math.random() * (max - min + 1)) + min);
+                
+        let positionxc = cono.position.x;
+        let positionzc = cono.position.z;
+       
+        console.log("posicion x solo: "+positionxc);
+        console.log("posicion z solo: "+positionzc);
+
             break;
     }
 
