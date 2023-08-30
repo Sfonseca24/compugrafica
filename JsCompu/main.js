@@ -51,6 +51,7 @@ function startScene() {
 
 
     CreateLight("pointLight");
+    CreateLight("ambient");
 
     animate();
     onWindowResize();
@@ -66,7 +67,7 @@ function CreateLight(typeLight) {
             break;
         case "pointLight":
             const pointLight = new THREE.PointLight(0xff0000, 1, 100);
-            pointLight.position.set(0, 10, 0);
+            pointLight.position.set(0, 0, 0);
             scene.add(pointLight);
 
             const sphereSize = 1;
