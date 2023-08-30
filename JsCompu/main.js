@@ -50,7 +50,7 @@ function startScene() {
     animate();
     onWindowResize();
 }
-
+//creacion de objetos
 function createGeometry(typeForm) {
 
         //---objects---
