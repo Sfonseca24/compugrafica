@@ -48,16 +48,9 @@ function startScene() {
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
 
-    //Create light
 
 
-    const pointLight2 = new THREE.PointLight(0xfff000, 1, 100);
-    pointLight2.position.set(7, 10, 8);
-    scene.add(pointLight2);
-
-    const sphereSize2 = 1;
-    const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, sphereSize2);
-    scene.add(pointLightHelper2);
+    CreateLight("pointLight");
 
     animate();
     onWindowResize();
@@ -107,14 +100,20 @@ function createGeometry(typeForm) {
     switch (typeForm) {
         case 'cube':
 
-            //CUBE
+
+            //texture
+
+            const texture = new THREE.TextureLoader().load('../recursos-imagen/animales/face1.jpg');
+            // immediately use the texture for material creation 
+            //cube creation
             const geometrycube = new THREE.BoxGeometry(1, 1, 1);
-            const materialcube = new THREE.MeshBasicMaterial({
-                color: 0x00ff00,
-                wireframe: false,
-                transparent: true,
-                opacity: 0.5,
-                wireframeLinwidth: 6
+            const materialcube = new THREE.MeshLambertMaterial({
+                color: 0xffffff,
+                emissive: 0xffffff,
+                emissiveIntensity: 0.1,
+                map: texture,
+                opacity: 1,
+                wireframe: false
             });
             cube = new THREE.Mesh(geometrycube, materialcube);
             scene.add(cube);
