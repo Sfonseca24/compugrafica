@@ -1,7 +1,7 @@
 /*
     author: Santiago Fonseca
     last date of creation: 23/08/2023 9:20 pm
-    last modification: 23/08/2023 11:54 pm
+    last modification: 29/08/2023 11:54 pm
 */
 
 // creation elements
@@ -83,11 +83,11 @@ function createGeometry(typeForm) {
 
         //verificacion de posicion para no repetir
 
-        arraylistPosition.forEach((i)=>{
-            suma=suma+i;
-            console.log("numeros son: "+i);
-            console.log("suma es: "+suma);
-        })
+        // arraylistPosition.forEach((i)=>{
+        //     suma=suma+i;
+        //     console.log("numeros son: "+i);
+        //     console.log("suma es: "+suma);
+        // })
             break;
         case 'torus':
 
@@ -107,14 +107,14 @@ function createGeometry(typeForm) {
         console.log("posicion x solo: "+positionxt);
         console.log("posicion z solo: "+positionzt);
 
-        if (positionx!=positionxt&&positionz!=positionzt) {
-            torus.position.x=positionxt;
-            torus.position.z=positionzt;
+        // if (positionx!=positionxt&&positionz!=positionzt) {
+        //     torus.position.x=positionxt;
+        //     torus.position.z=positionzt;
             
-        }else{
-            torus.position.x=0;
-            torus.position.z=0;
-        }
+        // }else{
+        //     torus.position.x=0;
+        //     torus.position.z=0;
+        // }
 
             break;
         case 'cone':
