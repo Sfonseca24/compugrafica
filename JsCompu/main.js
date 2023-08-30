@@ -13,9 +13,10 @@ var scene = null,
     torus = null,
     cono = null,
     cube = null;
-    max = 11;
+    max = 11,
     min = -11;
-
+var arraylistPosition = [];
+var suma=0;
 function startScene() {
 
     //scene, camera, render
@@ -53,6 +54,12 @@ function startScene() {
 //creacion de objetos
 function createGeometry(typeForm) {
 
+
+    //arrays para posicones
+
+    
+
+
         //---objects---
     //to delete
     switch (typeForm) {
@@ -68,9 +75,19 @@ function createGeometry(typeForm) {
         
         let positionx = cube.position.x;
         let positionz = cube.position.z;
-       
+        arraylistPosition.push(positionx, positionz);
+   
+
         console.log("posicion x solo: "+positionx);
         console.log("posicion z solo: "+positionz);
+
+        //verificacion de posicion para no repetir
+
+        arraylistPosition.forEach((i)=>{
+            suma=suma+i;
+            console.log("numeros son: "+i);
+            console.log("suma es: "+suma);
+        })
             break;
         case 'torus':
 
@@ -84,9 +101,20 @@ function createGeometry(typeForm) {
                 
         let positionxt = torus.position.x;
         let positionzt = torus.position.z;
+        posicionesX.add(positionx);
+        posicionesZ.add(positionz);
        
         console.log("posicion x solo: "+positionxt);
         console.log("posicion z solo: "+positionzt);
+
+        if (positionx!=positionxt&&positionz!=positionzt) {
+            torus.position.x=positionxt;
+            torus.position.z=positionzt;
+            
+        }else{
+            torus.position.x=0;
+            torus.position.z=0;
+        }
 
             break;
         case 'cone':
@@ -96,14 +124,16 @@ function createGeometry(typeForm) {
         const materialcono = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
         cono = new THREE.Mesh(geometrycono, materialcono);
         scene.add(cono);
-        cono.position.x=Math.random() * 10;
-        cono.position.z=Math.random() * 10+15;
+
+
 
         cono.position.x=Math.floor((Math.random() * (max - min + 1)) + min);
         cono.position.z=Math.floor((Math.random() * (max - min + 1)) + min);
                 
         let positionxc = cono.position.x;
         let positionzc = cono.position.z;
+        posicionesX.add(positionx);
+        posicionesZ.add(positionz);
        
         console.log("posicion x solo: "+positionxc);
         console.log("posicion z solo: "+positionzc);
