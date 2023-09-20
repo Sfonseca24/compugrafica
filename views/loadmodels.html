@@ -13,8 +13,20 @@
         <title>Load - 3D Models</title>
         <!--Styles boostrap-->
         <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script src="/libs/three.js-master/build/three.min.js"></script>
+        <script src="/libs/controls/OrbitControls.js"></script>
+
+        <!--OBJ y MTL-->
+        <script src="/libs/load/OBJLoader.js"></script>
+        <script src="/libs/load/MTLLoader.js"></script>
+
+        <!--GLTF-->
+        <script src="/libs/load/DRACOLoader.js"></script>
+        <script src="/libs/load/GLTFLoader.js"></script>
+
+        <script src="/JsCompu/mainObjexts.js"></script>
     </head>
-<body>
+<body onload="startScene()">
     <nav class="navbar border-bottom border-body" id="navba" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand" href="/">
@@ -22,7 +34,7 @@
             </a>
         </div>
     </nav>
-    <canvas>
+    <canvas style="position: fixed;" id="Models3d">
 
     </canvas>
     <!--footer-->
