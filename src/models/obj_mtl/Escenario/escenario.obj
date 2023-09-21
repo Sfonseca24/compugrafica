@@ -4,7 +4,7 @@
 o 
 
 # material
-mtllib MyplaceofcharacterWithCharacter-2.mtl
+mtllib escenario.mtl
 usemtl palette
 
 # normals
