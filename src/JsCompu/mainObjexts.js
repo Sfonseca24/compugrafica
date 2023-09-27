@@ -60,6 +60,7 @@ function startScene() {
     loadDuck_Gltf("../src/models/gltf", "../src/models/gltf/Duck.gltf");
 
     createCollectibles();
+    stateGame('lose');
 }
 
 function animate() {
@@ -170,15 +171,19 @@ function stateGame(state) {
 
     switch (state) {
         case 'win':
-
+            //audio & show img
             document.getElementById("winpage").style.display = "block";
 
             break;
 
         case 'lose':
-
+            //audio & show img
             document.getElementById("lostpage").style.display = "block";
 
+            break;
+        default:
+            document.getElementById("winpage").style.display = "none";
+            document.getElementById("winpage").style.display = "none";
             break;
     }
 
