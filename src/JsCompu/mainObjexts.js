@@ -45,7 +45,7 @@ function startScene() {
     // light.position.set( 5,10,10 );
     // scene.add( light );
 
-    
+
 
 
 
@@ -58,6 +58,8 @@ function startScene() {
     loadModel_objMtl("../src/models/obj_mtl/Personaje/", "PersonajeRobot2.obj", "PersonajeRobot2.mtl");
     //Duck Model
     loadDuck_Gltf("../src/models/gltf", "../src/models/gltf/Duck.gltf");
+
+    createCollectibles();
 }
 
 function animate() {
@@ -116,7 +118,7 @@ function loadDuck_Gltf(path, nameGltf) {
             scene.add(gltf.scene);
 
             gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene.position.set(10,1,10);
+            gltf.scene.position.set(10, 1, 10);
             gltf.scene.scale.set(2, 2, 2);// THREE.Group
             gltf.scenes; // Array<THREE.Group>
             gltf.cameras; // Array<THREE.Camera>
@@ -136,4 +138,28 @@ function loadDuck_Gltf(path, nameGltf) {
 
         }
     );
+
+
+}
+
+function createCollectibles() {
+
+    const max = 5;
+    const min= -5;
+
+    for (let i = 0; i < 9; i++) {
+        var positionx = Math.floor((Math.random() * (max - (min) + 1)) + (min));
+        var positionz = Math.floor((Math.random() * (max - (min) + 1)) + (min));
+
+        const texture = new THREE.TextureLoader().load("../src/recursos-imagen/textures/textureGift.png")
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x00ff00,
+            map: texture
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(positionx, 4.2, positionz);
+        scene.add(cube);
+    }
+
 }
