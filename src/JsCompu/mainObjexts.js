@@ -49,9 +49,9 @@ function startScene() {
 const loader = new GLTFLoader();
 
 // Optional: Provide a DRACOLoader instance to decode compressed mesh data
-const dracoLoader = new DRACOLoader();
+/*const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath( 'src/models/gltf' );
-loader.setDRACOLoader( dracoLoader );
+loader.setDRACOLoader( dracoLoader );*/
 
 // Load a glTF resource
 loader.load(
