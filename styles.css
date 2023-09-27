@@ -7,6 +7,28 @@ body{
     width: 40px;
 }*/
 
+#winpage{
+    display: none;
+    position: absolute; 
+    background-image: url(../src/recursos-imagen/INTROS-OVER-PAUSE/PANTALLA-WINopc1.png);
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 5;
+}
+
+#lostpage{
+    display: none;
+    position: absolute; 
+    background-image: url(/src/recursos-imagen/INTROS-OVER-PAUSE/PANTALLA-GAMEOVERopc1.png);
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 5;
+}
+
 .logo{
     width: 40px;
     height: 40px;
