@@ -15,7 +15,7 @@ body{
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 5;
+    z-index: 5000;
 }
 
 #lostpage{
@@ -26,7 +26,7 @@ body{
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 5;
+    z-index: 5000;
 }
 
 .logo{
