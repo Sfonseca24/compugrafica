@@ -1,7 +1,7 @@
 /*
     author: Santiago Fonseca
-    last date of creation: 23/08/2023 9:20 pm
-    last modification: 29/08/2023 11:54 pm
+    last date of creation: 26/09/2023 4:00 pm
+    last modification: 26/09/2023 11:54 pm
 */
 
 // creation elements
@@ -16,10 +16,10 @@ function startScene() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000); //33FFC5
     camera = new THREE.PerspectiveCamera(
-                                            75,                                        //Angulo de visión(Abajo o arriba) 
-                                            window.innerWidth / window.innerHeight,    //Relación de aspecto 16:9
-                                            0.1,                                       //Mas cerca (no renderiza)
-                                            1000);                                    //Mas lejos ()
+        75,                                        //Angulo de visión(Abajo o arriba) 
+        window.innerWidth / window.innerHeight,    //Relación de aspecto 16:9
+        0.1,                                       //Mas cerca (no renderiza)
+        1000);                                    //Mas lejos ()
 
     renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('Models3d') });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -38,60 +38,26 @@ function startScene() {
     // const axesHelper = new THREE.AxesHelper(5);
     // scene.add(axesHelper);
 
-    const lightAmbient = new THREE.AmbientLight( 0xFFFFFF ); // soft white light
-    scene.add( lightAmbient );
+    const lightAmbient = new THREE.AmbientLight(0xFFFFFF); // soft white light
+    scene.add(lightAmbient);
 
     // const light = new THREE.PointLight( 0xffffff, 1, 100 );
     // light.position.set( 5,10,10 );
     // scene.add( light );
 
-   // Instantiate a loader
-const loader = new GLTFLoader();
-
-// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-/*const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath( 'src/models/gltf' );
-loader.setDRACOLoader( dracoLoader );*/
-
-// Load a glTF resource
-loader.load(
-	// resource URL
-	'src/models/gltf/Duck.gltf',
-	// called when the resource is loaded
-	function ( gltf ) {
-
-		scene.add( gltf.scene );
-
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Group
-		gltf.scenes; // Array<THREE.Group>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened' );
-
-	}
-);
+    
 
 
 
     animate();
     // Escenario
-    loadModel_objMtl("../src/models/obj_mtl/Escenario/","escenario.obj","escenario.mtl");
+    loadModel_objMtl("../src/models/obj_mtl/Escenario/", "escenario.obj", "escenario.mtl");
     // Human Model
-    loadModel_objMtl("../src/models/obj_mtl/Personaje/","PersonajeOso2.obj","PersonajeOso2.mtl");
+    loadModel_objMtl("../src/models/obj_mtl/Personaje/", "PersonajeOso2.obj", "PersonajeOso2.mtl");
     // Robot Model
-    loadModel_objMtl("../src/models/obj_mtl/Personaje/","PersonajeRobot2.obj","PersonajeRobot2.mtl");
+    loadModel_objMtl("../src/models/obj_mtl/Personaje/", "PersonajeRobot2.obj", "PersonajeRobot2.mtl");
+    //Duck Model
+    loadDuck_Gltf("../src/models/gltf", "../src/models/gltf/Duck.gltf");
 }
 
 function animate() {
@@ -106,7 +72,7 @@ window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
@@ -124,9 +90,50 @@ function loadModel_objMtl(path, nameObj, nameMtl) {
         objLoader.setMaterials(materials);
         objLoader.load(nameObj, function (object) {
             scene.add(object);
-            object.scale.set(2,2,2);
+            object.scale.set(2, 2, 2);
         })
     })
 
 
+}
+
+function loadDuck_Gltf(path, nameGltf) {
+    // Instantiate a loader DUCK
+    const loader = new THREE.GLTFLoader();
+
+    // Optional: Provide a DRACOLoader instance to decode compressed mesh data
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath(path);
+    loader.setDRACOLoader(dracoLoader);
+
+    // Load a glTF resource
+    loader.load(
+        // resource URL
+        nameGltf,
+        // called when the resource is loaded
+        function (gltf) {
+
+            scene.add(gltf.scene);
+
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene.position.set(10,1,10);
+            gltf.scene.scale.set(2, 2, 2);// THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+
+        },
+        // called while loading is progressing
+        function (xhr) {
+
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+        },
+        // called when loading has errors
+        function (error) {
+
+            console.log('An error happened');
+
+        }
+    );
 }
