@@ -27,7 +27,7 @@ function startScene() {
 
     //Orbit controls
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(0, 0, 20);
+    camera.position.set(43, 25, 40);
     controls.update();
 
     //Grid Helper
@@ -67,6 +67,8 @@ function animate() {
     requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
+
+
 }
 
 window.addEventListener('resize', onWindowResize, false);
@@ -145,7 +147,7 @@ function loadDuck_Gltf(path, nameGltf) {
 function createCollectibles() {
 
     const max = 5;
-    const min= -5;
+    const min = -5;
 
     for (let i = 0; i < 9; i++) {
         var positionx = Math.floor((Math.random() * (max - (min) + 1)) + (min));
@@ -160,6 +162,24 @@ function createCollectibles() {
         const cube = new THREE.Mesh(geometry, material);
         cube.position.set(positionx, 4.2, positionz);
         scene.add(cube);
+    }
+
+}
+
+function stateGame(state) {
+
+    switch (state) {
+        case 'win':
+
+            document.getElementById("winpage").style.display = "block";
+
+            break;
+
+        case 'lose':
+
+            document.getElementById("lostpage").style.display = "block";
+
+            break;
     }
 
 }
