@@ -1,7 +1,7 @@
 /*
     author: Santiago Fonseca
-    last date of creation: 26/09/2023 4:00 pm
-    last modification: 26/09/2023 11:54 pm
+    last date of creation: 30/09/2023 4:00 pm
+    last modification: 30/09/2023 8:30 pm
 */
 
 // creation elements
@@ -9,7 +9,10 @@
 var scene = null,
     camera = null,
     renderer = null,
-    control = null;
+    control = null,
+    timer = 0;
+
+
 
 function startScene() {
     // Scene, Camera, Renderer
@@ -59,8 +62,10 @@ function startScene() {
     //Duck Model
     loadDuck_Gltf("../src/models/gltf", "../src/models/gltf/Duck.gltf");
 
+    timer = 60;
     createCollectibles();
-    stateGame('lose');
+    stateGame();
+    
 }
 
 function animate() {
@@ -187,4 +192,30 @@ function stateGame(state) {
             break;
     }
 
+}
+
+//funcion temporizador mas audios de ambiente y perdida del juego
+function temporizador() {
+    let audiolose = document.getElementById('losegame');
+    let audioambient = document.getElementById('audioambient');
+    let IdbutonAgain = document.getElementById('AgainStartB');
+    let idnav = document.getElementById('navba');
+    document.getElementById('timer').innerHTML = "Time: "+timer;
+    let Idbuton = document.getElementById('StartB');
+    Idbuton.style.display = "none";
+    if (timer==0) {
+        stateGame('lose');
+        //reproduccion de audio perder cuando se acaba el tiempo
+        audioambient.pause();
+        audiolose.play();
+        Idbuton.style.display = "block";
+        //IdbutonAgain.style.display = "block";
+        //console.log(id);
+        idnav.style.display = "none";
+        
+    }else{
+        timer -= 1;
+
+    }
+    setTimeout('temporizador()', 1000);
 }

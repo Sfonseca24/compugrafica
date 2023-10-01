@@ -1,39 +1,50 @@
 <!--
     author: Santiago Fonseca
-    last date of creation: 16/08/2023 10 pm
-    last modification: 16/08/2023 11:54 pm
+    last date of creation: 30/09/2023 4:00 pm
+    last modification: 30/09/2023 8:30 pm
 -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=, initial-scale=1.0">
-        <link rel="stylesheet" href="/styles.css">
-        <link rel="shortcut icon" href="/src/recursos-imagen/3941113.png" type="image/png">
-        <title>Load - 3D Models</title>
-        <!--Styles boostrap-->
-        <link rel="stylesheet" href="/src/css/bootstrap.min.css">
-        <script src="/src/libs/three.js-master/build/three.min.js"></script>
-        <script src="/src/libs/controls/OrbitControls.js"></script>
 
-        <!--OBJ y MTL-->
-        <script src="/src/libs/load/OBJLoader.js"></script>
-        <script src="/src/libs/load/MTLLoader.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="shortcut icon" href="/src/recursos-imagen/3941113.png" type="image/png">
+    <title>Load - 3D Models</title>
+    <!--Styles boostrap-->
+    <link rel="stylesheet" href="/src/css/bootstrap.min.css">
+    <script src="/src/libs/three.js-master/build/three.min.js"></script>
+    <script src="/src/libs/controls/OrbitControls.js"></script>
 
-        <!--GLTF-->
-        <script src="/src/libs/load/DRACOLoader.js"></script>
-        <script src="/src/libs/load/GLTFLoader.js"></script>
+    <!--OBJ y MTL-->
+    <script src="/src/libs/load/OBJLoader.js"></script>
+    <script src="/src/libs/load/MTLLoader.js"></script>
 
-        <script src="/src/JsCompu/mainObjexts.js"></script>
-    </head>
+    <!--GLTF-->
+    <script src="/src/libs/load/DRACOLoader.js"></script>
+    <script src="/src/libs/load/GLTFLoader.js"></script>
+
+    <script src="/src/JsCompu/mainObjexts.js"></script>
+</head>
+
 <body onload="startScene()">
-    <nav class="navbar border-bottom border-body" id="navba" data-bs-theme="dark">
-        <div class="container">
+    <nav class="navbar border-bottom border-body" id="navba" data-bs-theme="dark"
+        style="justify-content: center; z-index: index;">
+        <div class="container text-center">
             <a class="navbar-brand" href="/">
-                <img class="logo" src="/src/recursos-imagen/rubik_318-407097.png" alt="bootstrap">
+                <img style="height: 70px;" src="/src/recursos-imagen/rubik_318-407097.png" alt="bootstrap">
             </a>
-            <h1>Points: 0</h1>
-            <h1>Time: 60</h1>
+            <!--button style="display: none;" id="AgainStartB" onclick="PlayAgain()">Play Again</button-->
+            <button class="btn btn-warning" id="StartB" onclick="temporizador()">Start Game</button>
+            <div class="row">
+                <div class="col-sm-5">
+                    <h2>Points: 0</h2>
+                </div>
+                <div class="col-sm-5">
+                    <h2 id="timer">Time: 60</h2>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -42,10 +53,15 @@
     <div id="lostpage"></div>
 
     <!--load audio-->
-    <audio controls autoplay loop>
-        <source src="../src/sounds/soundambient2.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-      </audio>
+    <audio id="losegame">
+        <source src="../src/sounds/game-over-arcade-6435.mp3" type="audio/mpeg">
+    </audio>
+
+    
+    <audio id="audioambient" autoplay loop>
+        <source src="../src/sounds/soundambient3.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <canvas style="position: fixed;" id="Models3d">
 
@@ -58,4 +74,5 @@
         </footer>
     </div>
 </body>
+
 </html>
