@@ -14,9 +14,9 @@ var scene = null,
 
 //Avatar
 var myPlayer = null;
-    input = {left:0, right:0, up:0, down: 0},
+input = { left: 0, right: 0, up: 0, down: 0 },
     rootSpeed = 0.05,
-    speed= 0.5;
+    speed = 0.5;
 
 
 
@@ -35,9 +35,9 @@ function startScene() {
     document.body.appendChild(renderer.domElement);
 
     //Orbit controls
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(43, 25, 40);
-    controls.update();
+    // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.set(5, 2, 12);
+    // controls.update();
 
     //Grid Helper
     // const gridHelper = new THREE.GridHelper(size, divisions);
@@ -77,9 +77,10 @@ function startScene() {
 function animate() {
 
     requestAnimationFrame(animate);
-    controls.update();
+    // controls.update();
     renderer.render(scene, camera);
     //console.log(camera.position);
+    moveAvatar();
 
 }
 
@@ -205,10 +206,10 @@ function temporizador() {
     let audiolose = document.getElementById('losegame');
     let audioambient = document.getElementById('audioambient');
     let idnav = document.getElementById('navba');
-    document.getElementById('timer').innerHTML = "Time: "+timer;
+    document.getElementById('timer').innerHTML = "Time: " + timer;
     let Idbuton = document.getElementById('StartB');
     Idbuton.style.display = "none";
-    if (timer==0) {
+    if (timer == 0) {
         stateGame('lose');
         //reproduccion de audio perder cuando se acaba el tiempo
         audioambient.pause();
@@ -217,8 +218,8 @@ function temporizador() {
         //IdbutonAgain.style.display = "block";
         //console.log(id);
         idnav.style.display = "none";
-        
-    }else{
+
+    } else {
         timer -= 1;
 
     }
@@ -229,30 +230,30 @@ function createAvatar() {
     console.log("crear Personaje");
     const texture = new THREE.TextureLoader().load("../src/recursos-imagen/textures/textureGift.png")
     const geometry = new THREE.BoxGeometry(5, 7, 5);
-    const material = new THREE.MeshBasicMaterial({
-        color: 0x00ff00,
-        wireframe: true
-    });
-    const cube = new THREE.Mesh(geometry, material);
+    const material = new THREE.MeshBasicMaterial({  color: 0x00ff00,       wireframe: true    });
+    myPlayer = new THREE.Mesh(geometry, material);
     //cube.position.set(0,1,0.009);
-    cube.position.y = 6.8;
-    scene.add(cube);
+    scene.add(myPlayer);
+    myPlayer.position.y = 6.8;
+
+    myPlayer.position.set(camera.position.x,camera.position.y,camera.position.z);
+    
 }
 
-function moveAvatar(){
-    if(input.right == 1){ // Rotation Right
+function moveAvatar() {
+    if (input.right == 1) { // Rotation Right
         camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
-    } else if(input.left == 1) { // Rotation left
+    } else if (input.left == 1) { // Rotation left
         camera.rotation.y += rootSpeed;
         myPlayer.rotation.y += rootSpeed;
-    } else if(input.up == 1){ // movement up
+    } else if (input.up == 1) { // movement up
         camera.position.z -= Math.cos(camera.rotation.y) * speed;
         camera.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
-        
-    } else if(input.down == 1){ // movement down
+
+    } else if (input.down == 1) { // movement down
         camera.position.z += Math.cos(camera.rotation.y) * speed;
         camera.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
@@ -261,5 +262,48 @@ function moveAvatar(){
 }
 
 document.addEventListener('keydown', (e) => {
-    console.log(e.keyCode);
+    console.log("undi: " + e.keyCode);
+
+    switch (e.keyCode) {
+        case 87:
+            input.up = 1;
+            break;
+
+        case 83:
+            input.down = 1;
+            break;
+
+        case 65:
+            input.left = 1;
+            break;
+
+        case 68:
+            input.right = 1;
+            break;
+
+    }
 });
+
+document.addEventListener('keyup', (e) => {
+    console.log("undi: " + e.keyCode);
+
+    switch (e.keyCode) {
+        case 87:
+            input.up = 0;
+            break;
+
+        case 83:
+            input.down = 0;
+            break;
+
+        case 65:
+            input.left = 0;
+            break;
+
+        case 68:
+            input.right = 0;
+            break;
+
+    }
+});
+
