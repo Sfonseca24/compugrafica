@@ -228,13 +228,14 @@ function temporizador() {
 function createAvatar() {
     console.log("crear Personaje");
     const texture = new THREE.TextureLoader().load("../src/recursos-imagen/textures/textureGift.png")
-    const geometry = new THREE.BoxGeometry(5, 5, 5);
+    const geometry = new THREE.BoxGeometry(5, 7, 5);
     const material = new THREE.MeshBasicMaterial({
         color: 0x00ff00,
-        // map: texture
+        wireframe: true
     });
     const cube = new THREE.Mesh(geometry, material);
-    cube.position.set(1,1,1);
+    //cube.position.set(0,1,0.009);
+    cube.position.y = 6.8;
     scene.add(cube);
 }
 
