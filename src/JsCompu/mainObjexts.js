@@ -240,16 +240,26 @@ function createAvatar() {
 }
 
 function moveAvatar(){
-    if (input.right==1) {
+    if(input.right == 1){ // Rotation Right
         camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
-          
-    }else if(input.left == 1){
+    } else if(input.left == 1) { // Rotation left
         camera.rotation.y += rootSpeed;
         myPlayer.rotation.y += rootSpeed;
-    }else if(input.up){
-
-    }else if(input.down){
-
+    } else if(input.up == 1){ // movement up
+        camera.position.z -= Math.cos(camera.rotation.y) * speed;
+        camera.position.z -= Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
+        
+    } else if(input.down == 1){ // movement down
+        camera.position.z += Math.cos(camera.rotation.y) * speed;
+        camera.position.z += Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
     }
 }
+
+document.addEventListener('keydown', (e) => {
+    console.log(e.keyCode);
+});
