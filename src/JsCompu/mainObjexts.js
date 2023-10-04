@@ -13,7 +13,8 @@ var scene = null,
     timer = 0;
 
 //Avatar
-var myPlayer = null;
+var myPlayer = null,
+    myPlayerMesh = null;
 input = { left: 0, right: 0, up: 0, down: 0 },
     rootSpeed = 0.05,
     speed = 0.5;
@@ -36,7 +37,7 @@ function startScene() {
 
     //Orbit controls
     // controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(5, 2, 12);
+    camera.position.set(5, 5, 12);
     // controls.update();
 
     //Grid Helper
@@ -82,6 +83,8 @@ function animate() {
     //console.log(camera.position);
     moveAvatar();
 
+    //myPlayer.position.set(myPlayer.position.x, 0, myPlayer.position.z);
+
 }
 
 window.addEventListener('resize', onWindowResize, false);
@@ -108,6 +111,12 @@ function loadModel_objMtl(path, nameObj, nameMtl) {
         objLoader.load(nameObj, function (object) {
             scene.add(object);
             object.scale.set(2, 2, 2);
+            if (nameObj == "PersonajeOso2.obj") {
+                myPlayerMesh = object;
+                myPlayerMesh.rotation.y = Math.PI;
+                    myPlayer.position.set(myPlayer.position.x, 0, myPlayer.position.z);
+
+            }
         })
     })
 
@@ -230,34 +239,41 @@ function createAvatar() {
     console.log("crear Personaje");
     const texture = new THREE.TextureLoader().load("../src/recursos-imagen/textures/textureGift.png")
     const geometry = new THREE.BoxGeometry(5, 7, 5);
-    const material = new THREE.MeshBasicMaterial({  color: 0x00ff00,       wireframe: true    });
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
     myPlayer = new THREE.Mesh(geometry, material);
     //cube.position.set(0,1,0.009);
     scene.add(myPlayer);
     myPlayer.position.y = 6.8;
 
-    myPlayer.position.set(camera.position.x,camera.position.y,camera.position.z);
     
+    myPlayer.position.set(camera.position.x, camera.position.y, camera.position.z);
+
 }
 
 function moveAvatar() {
     if (input.right == 1) { // Rotation Right
         camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
+        myPlayerMesh.rotation.y -= rootSpeed;
     } else if (input.left == 1) { // Rotation left
         camera.rotation.y += rootSpeed;
         myPlayer.rotation.y += rootSpeed;
+        myPlayerMesh.rotation.y += rootSpeed;
     } else if (input.up == 1) { // movement up
         camera.position.z -= Math.cos(camera.rotation.y) * speed;
         camera.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.z -= Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.z -= Math.sin(camera.rotation.y) * speed;
 
     } else if (input.down == 1) { // movement down
         camera.position.z += Math.cos(camera.rotation.y) * speed;
         camera.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.z += Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.z += Math.sin(camera.rotation.y) * speed;
     }
 }
 
