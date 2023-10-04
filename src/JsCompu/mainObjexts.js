@@ -12,6 +12,12 @@ var scene = null,
     control = null,
     timer = 0;
 
+//Avatar
+var myPlayer = null;
+    input = {left:0, right:0, up:0, down: 0},
+    rootSpeed = 0.05,
+    speed= 0.5;
+
 
 
 function startScene() {
@@ -62,10 +68,10 @@ function startScene() {
     //Duck Model
     loadDuck_Gltf("../src/models/gltf", "../src/models/gltf/Duck.gltf");
 
-    timer = 60;
+    timer = 30;
     createCollectibles();
     stateGame();
-    
+    createAvatar();
 }
 
 function animate() {
@@ -73,7 +79,7 @@ function animate() {
     requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
-
+    //console.log(camera.position);
 
 }
 
@@ -198,7 +204,6 @@ function stateGame(state) {
 function temporizador() {
     let audiolose = document.getElementById('losegame');
     let audioambient = document.getElementById('audioambient');
-    let IdbutonAgain = document.getElementById('AgainStartB');
     let idnav = document.getElementById('navba');
     document.getElementById('timer').innerHTML = "Time: "+timer;
     let Idbuton = document.getElementById('StartB');
@@ -218,4 +223,32 @@ function temporizador() {
 
     }
     setTimeout('temporizador()', 1000);
+}
+
+function createAvatar() {
+    console.log("crear Personaje");
+    const texture = new THREE.TextureLoader().load("../src/recursos-imagen/textures/textureGift.png")
+    const geometry = new THREE.BoxGeometry(5, 5, 5);
+    const material = new THREE.MeshBasicMaterial({
+        color: 0x00ff00,
+        // map: texture
+    });
+    const cube = new THREE.Mesh(geometry, material);
+    cube.position.set(1,1,1);
+    scene.add(cube);
+}
+
+function moveAvatar(){
+    if (input.right==1) {
+        camera.rotation.y -= rootSpeed;
+        myPlayer.rotation.y -= rootSpeed;
+          
+    }else if(input.left == 1){
+        camera.rotation.y += rootSpeed;
+        myPlayer.rotation.y += rootSpeed;
+    }else if(input.up){
+
+    }else if(input.down){
+
+    }
 }

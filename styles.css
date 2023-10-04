@@ -39,3 +39,6 @@ body{
     z-index: 1;
 }
 
+#botonAgain{
+    display: none;
+}
