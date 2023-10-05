@@ -15,7 +15,7 @@ var scene = null,
 //Avatar
 var myPlayer = null,
     myPlayerMesh = null;
-input = { left: 0, right: 0, rightb: 0, up: 0, down: 0 },
+input = { left: 0, right: 0, rightb: 0, upz: 0, downz: 0, upx: 0, downx: 0 },
     rootSpeed = 0.05,
     speed = 0.5;
 
@@ -87,12 +87,8 @@ function animate() {
     moveAvatar();
     // console.log(object.position);
     //myPlayer.position.set(myPlayer.position.x, 0, myPlayer.position.z);
-    document.getElementById("Models3d").addEventListener("mousemove", moveCamera);
-    Models3d.addEventListener("mousemove", function(evt) {
-        var mousePos = oMousePos(testPosRaton, evt);
-        marcarCoords(output, mousePos.x, mousePos.y)
-      }, false);
-
+    //document.getElementById("Models3d").addEventListener("mousemove", moveCamera);
+    
 
 }
 
@@ -262,35 +258,46 @@ function createAvatar() {
 
 function moveAvatar() {
     if (input.right == 1) { // Rotation Right
-        //camera.rotation.y -= rootSpeed;
+        camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
         myPlayerMesh.rotation.y -= rootSpeed;
-    } else if (input.left == 1) { // Rotation left
-        //camera.rotation.y += rootSpeed;
+    } else if (input.left== 1) { // Rotation left
+        camera.rotation.y += rootSpeed;
         myPlayer.rotation.y += rootSpeed;
         myPlayerMesh.rotation.y += rootSpeed;
-    } else if (input.up == 1) { // movement up
+        console.log("r x: "+myPlayerMesh.rotation.y);
+    } else if (input.upz == 1) { // movement up
         camera.position.z -= Math.cos(camera.rotation.y) * speed;
         camera.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayerMesh.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayerMesh.position.z -= Math.sin(camera.rotation.y) * speed;
-
-    } else if (input.down == 1) { // movement down
+        console.log("p x: "+myPlayerMesh.position.x);
+    } else if (input.downz == 1) { // movement down
         camera.position.z += Math.cos(camera.rotation.y) * speed;
         camera.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayerMesh.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayerMesh.position.z += Math.sin(camera.rotation.y) * speed;
-    }else if (input.rightb == 1) { // movement down
-        camera.position.x += Math.cos(camera.rotation.y) * speed;
-        camera.position.x += Math.sin(camera.rotation.y) * speed;
-        myPlayer.position.x += Math.cos(camera.rotation.y) * speed;
-        myPlayer.position.x += Math.sin(camera.rotation.y) * speed;
-        myPlayerMesh.position.x += Math.cos(camera.rotation.y) * speed;
-        myPlayerMesh.position.x += Math.sin(camera.rotation.y) * speed;
+    }else if (input.upx == 1) { // movement up
+        camera.position.x -= Math.cos(camera.rotation.y) * speed;
+        camera.position.x -= Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.x -= Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.x -= Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.x -= Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.x -= Math.sin(camera.rotation.y) * speed;
+        console.log("p x: "+myPlayerMesh.position.x);
+    }else if (input.downx == 1) { // movement up
+        camera.position.x -= Math.cos(camera.rotation.y) * speed;
+        camera.position.x -= Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.x -= Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.x -= Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.x -= Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.x -= Math.sin(camera.rotation.y) * speed;
+        console.log("p x: "+myPlayerMesh.position.x);
+
     }
 }
 
@@ -299,13 +306,19 @@ document.addEventListener('keydown', (e) => {
 
     switch (e.keyCode) {
         case 87:
-            input.up = 1;
+            input.upz = 1;
             break;
 
         case 83:
-            input.down = 1;
+            input.downz = 1;
             break;
-
+        case 87:
+            input.upx = 1;
+            break;
+    
+        case 83:
+            input.downx = 1;
+            break;
         case 65:
             input.left = 1;
             break;
@@ -313,25 +326,28 @@ document.addEventListener('keydown', (e) => {
         case 68:
             input.right = 1;
             break;
-        case 70:
-            input.rightb = 1;
-            break;
 
     }
 });
 
-document.addEventListener('keyup', (e) => {
+document.addEventListener('keydown', (e) => {
     console.log("undi: " + e.keyCode);
 
     switch (e.keyCode) {
         case 87:
-            input.up = 0;
+            input.upz = 0;
             break;
 
         case 83:
-            input.down = 0;
+            input.downz = 0;
             break;
-
+        case 87:
+            input.upx = 0;
+            break;
+    
+        case 83:
+            input.downx = 0;
+            break;
         case 65:
             input.left = 0;
             break;
@@ -339,17 +355,14 @@ document.addEventListener('keyup', (e) => {
         case 68:
             input.right = 0;
             break;
-        case 70:
-            input.rightb = 0;
-            break;
 
     }
 });
 
-function moveCamera(e) {
-    let x = e.clientX;
-    let z = e.clientZ;
-    camera.rotation.z = z;
-    camera.rotation.x = x;
-    console.log(camera.rotation.z+" y "+camera.rotation.x);
-}
+// function moveCamera(e) {
+//     let x = e.clientX;
+//     let z = e.clientZ;
+//     camera.rotation.z = z;
+//     camera.rotation.x = x;
+//     console.log(camera.rotation.z+" y "+camera.rotation.x);
+// }
