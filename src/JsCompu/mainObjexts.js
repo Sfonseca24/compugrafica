@@ -15,7 +15,7 @@ var scene = null,
 //Avatar
 var myPlayer = null,
     myPlayerMesh = null;
-input = { left: 0, right: 0, up: 0, down: 0 },
+input = { left: 0, right: 0, rightb: 0, up: 0, down: 0 },
     rootSpeed = 0.05,
     speed = 0.5;
 
@@ -36,8 +36,9 @@ function startScene() {
     document.body.appendChild(renderer.domElement);
 
     //Orbit controls
-    // controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(5, 5, 12);
+    //controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.set(0, 8, 0);
+    camera.rotation.y = 1.5;
     // controls.update();
 
     //Grid Helper
@@ -68,6 +69,8 @@ function startScene() {
     loadModel_objMtl("../src/models/obj_mtl/Personaje/", "PersonajeRobot2.obj", "PersonajeRobot2.mtl");
     //Duck Model
     loadDuck_Gltf("../src/models/gltf", "../src/models/gltf/Duck.gltf");
+    //mousemove camera
+    //document.getElementById("Models3d").addEventListener("mousemove", moveCamera);
 
     timer = 30;
     createCollectibles();
@@ -82,8 +85,14 @@ function animate() {
     renderer.render(scene, camera);
     //console.log(camera.position);
     moveAvatar();
-
+    // console.log(object.position);
     //myPlayer.position.set(myPlayer.position.x, 0, myPlayer.position.z);
+    document.getElementById("Models3d").addEventListener("mousemove", moveCamera);
+    Models3d.addEventListener("mousemove", function(evt) {
+        var mousePos = oMousePos(testPosRaton, evt);
+        marcarCoords(output, mousePos.x, mousePos.y)
+      }, false);
+
 
 }
 
@@ -114,12 +123,13 @@ function loadModel_objMtl(path, nameObj, nameMtl) {
             if (nameObj == "PersonajeOso2.obj") {
                 myPlayerMesh = object;
                 myPlayerMesh.rotation.y = Math.PI;
-                    myPlayer.position.set(myPlayer.position.x, 0, myPlayer.position.z);
-
+                myPlayer.position.set(myPlayer.position.x, 0, myPlayer.position.z);
+                console.log(object.position);
+                
             }
         })
     })
-
+    
 
 }
 
@@ -252,11 +262,11 @@ function createAvatar() {
 
 function moveAvatar() {
     if (input.right == 1) { // Rotation Right
-        camera.rotation.y -= rootSpeed;
+        //camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
         myPlayerMesh.rotation.y -= rootSpeed;
     } else if (input.left == 1) { // Rotation left
-        camera.rotation.y += rootSpeed;
+        //camera.rotation.y += rootSpeed;
         myPlayer.rotation.y += rootSpeed;
         myPlayerMesh.rotation.y += rootSpeed;
     } else if (input.up == 1) { // movement up
@@ -274,6 +284,13 @@ function moveAvatar() {
         myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayerMesh.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayerMesh.position.z += Math.sin(camera.rotation.y) * speed;
+    }else if (input.rightb == 1) { // movement down
+        camera.position.x += Math.cos(camera.rotation.y) * speed;
+        camera.position.x += Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.x += Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.x += Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.x += Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.x += Math.sin(camera.rotation.y) * speed;
     }
 }
 
@@ -295,6 +312,9 @@ document.addEventListener('keydown', (e) => {
 
         case 68:
             input.right = 1;
+            break;
+        case 70:
+            input.rightb = 1;
             break;
 
     }
@@ -319,7 +339,17 @@ document.addEventListener('keyup', (e) => {
         case 68:
             input.right = 0;
             break;
+        case 70:
+            input.rightb = 0;
+            break;
 
     }
 });
 
+function moveCamera(e) {
+    let x = e.clientX;
+    let z = e.clientZ;
+    camera.rotation.z = z;
+    camera.rotation.x = x;
+    console.log(camera.rotation.z+" y "+camera.rotation.x);
+}
